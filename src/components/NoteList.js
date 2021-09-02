@@ -23,7 +23,8 @@ const NoteList = () => {
             <h4>List of Notes</h4>
             <div className="notes-list mt-4">
                 {
-                    notes && notes.map(note => (
+                    notes.length > 0
+                    ? notes.map(note => (
                         <div key={note.id} className="notes-preview mt-3">
                             <Link to="#">
                                 <h5 className="primary-color text-capitalize">
@@ -32,7 +33,7 @@ const NoteList = () => {
                                 <p>{note.body}</p>
                             </Link>
                         </div>
-                    ))
+                    )) : <div>No notes available</div>
                 }
             </div>
         </div>
