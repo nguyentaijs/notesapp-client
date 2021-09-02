@@ -1,24 +1,40 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import NotesService from '../services/NotesService';
+import {Link} from "react-router-dom";
+
 
 const NoteList = () => {
 
-    const [notes, setNotes] = useState([
-        {title: "first note", body: "Some desc", category: "random cate", id: 1},
-        {title: "2nd note", body: "Some desc", category: "test cate", id: 2},
-        {title: "3rd note", body: "Some desc", category: "random cate", id: 3}
-    ])
+    const [notes, setNotes] = useState([])
+
+    useEffect(() => {
+        NotesService.getAll()
+            .then(response => {
+                console.log(response);
+                setNotes(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    }, [])
 
     return (
-        <div>
-            <h1>List of Notes</h1>
-            {
-                notes.map(note => (
-                    <div>
-                        <p>{note.title}</p>
-                        <p>{note.body}</p>
-                    </div>
-                ))
-            }
+        <div className="main-content">
+            <h4>List of Notes</h4>
+            <div className="notes-list mt-4">
+                {
+                    notes && notes.map(note => (
+                        <div key={note.id} className="notes-preview mt-3">
+                            <Link to="#">
+                                <h5 className="primary-color text-capitalize">
+                                    {note.title}
+                                </h5>
+                                <p>{note.body}</p>
+                            </Link>
+                        </div>
+                    ))
+                }
+            </div>
         </div>
     );
 };
