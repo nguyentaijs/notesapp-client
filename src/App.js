@@ -3,6 +3,7 @@ import NoteList from "./components/NoteList";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import NotFound from "./components/NotFound";
 import Navbar from "./components/Navbar";
+import NoteAdd from "./components/NoteAdd";
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
                 <Navbar/>
                 <Switch>
                     <Route exact path="/" component={NoteList}/>
+                    <Route path="/add" component={NoteAdd}/>
                     <Route path="*" component={NotFound}/>
                 </Switch>
             </div>
