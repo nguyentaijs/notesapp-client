@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import NotFound from "./components/NotFound";
 import Navbar from "./components/Navbar";
 import NoteAdd from "./components/NoteAdd";
+import NoteDetails from "./components/NoteDetails";
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                 <Switch>
                     <Route exact path="/" component={NoteList}/>
                     <Route path="/add" component={NoteAdd}/>
+                    <Route path="/:id" component={NoteDetails}/>
                     <Route path="*" component={NotFound}/>
                 </Switch>
             </div>
@@ -21,3 +23,4 @@ function App() {
 }
 
 export default App;
+

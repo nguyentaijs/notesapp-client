@@ -26,7 +26,7 @@ const NoteList = () => {
                     notes.length > 0
                     ? notes.map(note => (
                         <div key={note.id} className="notes-preview mt-3">
-                            <Link to="#">
+                            <Link to={`/${note.id}`}>
                                 <h5 className="primary-color text-capitalize">
                                     {note.title}
                                 </h5>
