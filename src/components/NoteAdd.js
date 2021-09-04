@@ -8,9 +8,14 @@ const NoteAdd = () => {
     const [category, setCategory] = useState('programming');
     const history = useHistory();
     const {id} = useParams();
+    const [error, setError] = useState(false);
 
     const createNote = (e) => {
         e.preventDefault();
+        if (!body || !title) {
+            setError(true);
+            return;
+        }
         const note = {id, title, body, category};
 
         if (id) { // update
@@ -52,6 +57,9 @@ const NoteAdd = () => {
     return (
         <div className="create">
             <h5 className="text-center">{id ? "Update Note" : "Add note"}</h5>
+            <div className="text-center">
+                {error && <span className="text-danger font-italic">Mandatory fields are required</span>}
+            </div>
             <form>
                 <div className="form-group">
                     <label htmlFor="title">Note title<sup>*</sup></label>
