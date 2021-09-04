@@ -8,12 +8,16 @@ const get = (id) => {
     return httpClient.get(`/notes/${id}`);
 }
 
+const update = (note) => {
+    return httpClient.put(`/notes`, note);
+}
+
 const remove = (id) => {
     return httpClient.delete(`/notes/${id}`);
 }
 
-const create = (data) => {
-    return httpClient.post("/notes", data);
+const create = (note) => {
+    return httpClient.post("/notes", note);
 }
 
-export default {getAll, get, create, remove};
+export default {getAll, get, create, remove, update};

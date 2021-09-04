@@ -36,6 +36,10 @@ const NoteDetails = () => {
         history.push("/");
     }
 
+    function updateNote() {
+        history.push(`/edit/${id}`)
+    }
+
     return (
         <div className="note-details main-content">
             <article>
@@ -48,6 +52,7 @@ const NoteDetails = () => {
             </article>
             <div className="text-left">
                 <button onClick={goBack} className="btn-primary">Back</button>
+                <button onClick={updateNote} className="btn-primary ml-3">Edit</button>
                 <button className="ml-3 btn-danger" onClick={deleteNote}>Delete</button>
             </div>
         </div>

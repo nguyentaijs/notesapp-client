@@ -14,6 +14,7 @@ function App() {
                 <Switch>
                     <Route exact path="/" component={NoteList}/>
                     <Route path="/add" component={NoteAdd}/>
+                    <Route path="/edit/:id" component={NoteAdd}/>
                     <Route path="/:id" component={NoteDetails}/>
                     <Route path="*" component={NotFound}/>
                 </Switch>

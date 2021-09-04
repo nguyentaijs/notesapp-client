@@ -1,29 +1,57 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import NotesService from "../services/NotesService";
-import {useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 
 const NoteAdd = () => {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [category, setCategory] = useState('programming');
     const history = useHistory();
+    const {id} = useParams();
 
     const createNote = (e) => {
         e.preventDefault();
-        const note = {title, body, category};
+        const note = {id, title, body, category};
 
-        NotesService.create(note)
-            .then(response => {
-                console.log("Success", response);
-                history.push("/");
-            })
-            .catch(err => {
-                console.error(err);
-            });
+        if (id) { // update
+            NotesService.update(note)
+                .then(response => {
+                    console.log("Update Success", response);
+                    history.push("/");
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        } else { // add
+            NotesService.create(note)
+                .then(response => {
+                    console.log("Add Success", response);
+                    history.push("/");
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        }
     }
+
+    useEffect(() => {
+        if (id) {
+            NotesService.get(id)
+                .then(response => {
+                    setTitle(response.data.title);
+                    setBody(response.data.body);
+                    setCategory(response.data.category);
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+        }
+    }, []);
+
 
     return (
         <div className="create">
+            <h5 className="text-center">{id ? "Update Note" : "Add note"}</h5>
             <form>
                 <div className="form-group">
                     <label htmlFor="title">Note title<sup>*</sup></label>
@@ -52,7 +80,7 @@ const NoteAdd = () => {
                     </select>
                 </div>
                 <div className="text-center">
-                    <button onClick={(e) => createNote(e)}>Add note</button>
+                    <button onClick={(e) => createNote(e)}> {id ? "Update" : "Add"}</button>
                 </div>
             </form>
         </div>
