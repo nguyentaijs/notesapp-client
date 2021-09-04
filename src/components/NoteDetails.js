@@ -1,6 +1,7 @@
 import {useHistory, useParams} from "react-router-dom";
 import NotesService from "../services/NotesService";
 import {useEffect, useState} from "react";
+import Moment from "react-moment";
 
 const NoteDetails = () => {
 
@@ -42,19 +43,23 @@ const NoteDetails = () => {
 
     return (
         <div className="note-details main-content">
-            <article>
-                <h5 className="text-capitalize primary-color">{currentNote.title}</h5>
-                <div className="mb-3 font-italic metadata">
-                    <span>{currentNote.updatedAt}</span>
-                    <span className="text-capitalize">, {currentNote.category}</span>
+            { currentNote &&
+                <div>
+                    <article>
+                        <h5 className="text-capitalize primary-color">{currentNote.title}</h5>
+                        <div className="mb-3 font-italic metadata">
+                            <Moment fromNow>{currentNote.updatedAt}</Moment>
+                            <span className="text-capitalize">, {currentNote.category}</span>
+                        </div>
+                        <div className="mb-3">{currentNote.body}</div>
+                    </article>
+                    <div className="text-left">
+                        <button onClick={goBack} className="btn-primary">Back</button>
+                        <button onClick={updateNote} className="btn-primary ml-3">Edit</button>
+                        <button className="ml-3 btn-danger" onClick={deleteNote}>Delete</button>
+                    </div>
                 </div>
-                <div className="mb-3">{currentNote.body}</div>
-            </article>
-            <div className="text-left">
-                <button onClick={goBack} className="btn-primary">Back</button>
-                <button onClick={updateNote} className="btn-primary ml-3">Edit</button>
-                <button className="ml-3 btn-danger" onClick={deleteNote}>Delete</button>
-            </div>
+            }
         </div>
     );
 }
